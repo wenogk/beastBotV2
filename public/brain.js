@@ -1,6 +1,11 @@
 
 let commented = false;
 let quota = 0;
+let huntMethodFirst = "";
+function addAndSetCounter(val) {
+  counter+=val
+  setCounter(counter)
+}
 function authenticate() {
   return gapi.auth2.getAuthInstance()
       .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
@@ -41,9 +46,11 @@ function execute(videoId) {
       .then(function(response) {
               quota+=50;
               setQuota(quota);
-              setStateVal("COMMENTED.")
+              setStateVal(JSON.stringify(response))
+              setStateVal("COMMENTED. Final hunt method was: " + huntMethodFirst)
               commented = true;
               openInNewTab("https://www.youtube.com/watch?v=" + videoId);
+              //alert(huntMethodFirst);
             },
             function(err) { console.error("Execute error", err); });
 }
@@ -57,19 +64,26 @@ function isNewVideo(id) {
   return (id!=currentLatestVideoID);
 }
 function peek(url,consoleText) { //call SERVER API ENDPOINT to return latest video
+try {
   fetch(url)
   .then(res => res.json())
   .then((out) => {
     setStateVal(consoleText)
+    addAndSetCounter(1)
     let title = out.title
     setLatestTitle(title)
     let videoID = out.link
-    //alert("title is" + title + " and video id is " + videoID); return true;
+    console.log("title:" + title + " and video id: " + videoID); //return true;
     if(isNewVideo(videoID)) {
+      huntMethodFirst = consoleText;
+      setLatestTitle(title)
       execute(videoID);
     }
   })
-  .catch(err => { throw err });
+  .catch((err) => { console.log(err) });
+} catch(e) {
+  console.log(e)
+}
 }
 function hunt() {
   quota+=3;
@@ -92,43 +106,33 @@ function hunt4() {
   peek(url,"Scraped youtube RSS xml for channel");
 }
 
-
-function latestVideo() {
-
-  let urlOld  = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY +"&channelId="+ channelID +"&part=snippet,id&order=date&maxResults=1"
-  let url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + uploadPlaylistID + "&key=" + API_KEY +"&maxResults=1"
-
-  fetch(url)
-  .then(res => res.json())
-  .then((out) => {
-    quota+=3;
-    setLatestTitle(out.items[0].snippet.title);
-    let idVal = out.items[0].snippet.resourceId.videoId;
-    if(idVal!=currentLatestVideoID) { //If latest video is different, start commenting function ASAPPPP
-      execute(idVal);
-      setStateVal("NEW VIDEO UP.");
-    }
-    //
-  })
-  .catch(err => { throw err });
+function hunt5() {
+  let url = SERVER_HOST + "/hunt5/" + channelID;
+  peek(url,"TOR Scraped featured section on youtube channel");
 }
 
+function hunt6() {
+  let url = SERVER_HOST + "/hunt6/" + channelID;
+  peek(url,"TOR Scraped videos section on youtube channel");
+}
 let counter=0;
 function goBeast() {
   if(commented) {
     fetched();
     return true;
   }
-setStateVal("Checking for new video.")
+//setStateVal("Checking for new video.")
 if(quota<5000) { //call API
-  hunt();
+  //hunt();
   setQuota(quota);
 }
-hunt2()
-hunt3()
-hunt4()
-counter+=1;
-setCounter(counter)
-setTimeout(goBeast, 500);
+
+//hunt2();
+hunt2();
+hunt3();
+
+setLatestTitle("")
+//setCounter(counter)
+setTimeout(goBeast, 5000);
 }
 //latestVideoScraper()

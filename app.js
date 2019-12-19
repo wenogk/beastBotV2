@@ -1,12 +1,14 @@
-const express = require('express')
-const beast = express()
-const port = 8080
+const express = require('express');
+const beast = express();
+const fs = require('fs');
+const port = 8080;
 var convert = require('xml-js');
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 let request = require('request');
-
+var tr = require('tor-request');
+//process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 beast.use('/', express.static('public'))
-
+//RUN TOR ON LAPTOP FIRST, "tor &" command on terminal
 beast.use('/hunt', (req,res) => {
   let API_KEY = req.query.key;
   let playlistId = req.query.playlistId;
@@ -27,6 +29,7 @@ beast.use('/hunt', (req,res) => {
         title: "none",
         link: "none"
       }
+      console.log(jsonResult + e)
       res.json(jsonResult)
     }
 });
@@ -34,8 +37,11 @@ beast.use('/hunt', (req,res) => {
 
 beast.use('/hunt2/:idVal', (req,res) => {
   let url ="https://m.youtube.com/channel/"+ req.params.idVal + "/featured"
+//  tr.reset_identity()
   request(url, function(err, resp, body)  {
     let result;
+    //console.log(body)
+    //console.log(err)
     try {
       $ = cheerio.load(body);
       links = $('a.yt-uix-tile-link');
@@ -47,6 +53,8 @@ beast.use('/hunt2/:idVal', (req,res) => {
          title: title,
          link: href
        }
+        console.log("hunt2: " + title + " - " + href)
+
         res.json(jsonResult)
         return false;
       });
@@ -55,6 +63,7 @@ beast.use('/hunt2/:idVal', (req,res) => {
         title: "none",
         link: "none"
       }
+      //console.log(jsonResult + e)
       res.json(jsonResult)
     }
 });
@@ -62,6 +71,7 @@ beast.use('/hunt2/:idVal', (req,res) => {
 
 beast.use('/hunt3/:idVal', (req,res) => {
   let url = "https://m.youtube.com/channel/"+ req.params.idVal + "/videos"
+//  tr.reset_identity()
   request(url, function(err, resp, body){
     let result;
     try {
@@ -75,6 +85,7 @@ beast.use('/hunt3/:idVal', (req,res) => {
          title: title,
          link: href
        }
+       console.log("hunt3: " + body)
         res.json(jsonResult)
         return false;
       });
@@ -83,6 +94,7 @@ beast.use('/hunt3/:idVal', (req,res) => {
         title: "none",
         link: "none"
       }
+
       res.json(jsonResult)
     }
 });
@@ -90,6 +102,7 @@ beast.use('/hunt3/:idVal', (req,res) => {
 
 beast.use('/hunt4/:idVal', (req,res) => {
   let url = "https://www.youtube.com/feeds/videos.xml?channel_id="+ req.params.idVal;
+//  tr.reset_identity()
   request(url, function(err, resp, body){
     let result;
     try {
@@ -100,12 +113,77 @@ beast.use('/hunt4/:idVal', (req,res) => {
         title: title,
         link: href
       }
+      console.log("hunt4: " + title)
        res.json(jsonResult)
     } catch(e) {
       let jsonResult = {
         title: "none",
         link: "none"
       }
+
+      res.json(jsonResult)
+    }
+});
+});
+
+beast.use('/hunt5/:idVal', (req,res) => {
+  let url ="https://m.youtube.com/channel/"+ req.params.idVal + "/featured"
+//  tr.reset_identity()
+  tr.request(url, function(err, resp, body)  {
+    let result;
+
+    try {
+      $ = cheerio.load(body);
+      links = $('a.yt-uix-tile-link');
+      $(links).each(function(i, link){
+       let title = $(link).attr('title')
+       let href = $(link).attr('href')
+       href = href.substring(9,href.length);
+       let jsonResult = {
+         title: title,
+         link: href
+       }
+       console.log("hunt2: " + title)
+        res.json(jsonResult)
+        return false;
+      });
+    } catch(e) {
+      let jsonResult = {
+        title: "none",
+        link: "none"
+      }
+      //console.log(jsonResult + e)
+      res.json(jsonResult)
+    }
+});
+});
+
+beast.use('/hunt6/:idVal', (req,res) => {
+  let url = "https://m.youtube.com/channel/"+ req.params.idVal + "/videos"
+//  tr.reset_identity()
+  request(url, function(err, resp, body){
+    let result;
+    try {
+      $ = cheerio.load(body);
+      links = $('a.yt-uix-tile-link');
+      $(links).each(function(i, link){
+       let title = $(link).attr('title')
+       let href = $(link).attr('href')
+       href = href.substring(9,href.length);
+       let jsonResult = {
+         title: title,
+         link: href
+       }
+       console.log("hunt3: " + title)
+        res.json(jsonResult)
+        return false;
+      });
+    } catch(e) {
+      let jsonResult = {
+        title: "none",
+        link: "none"
+      }
+
       res.json(jsonResult)
     }
 });
