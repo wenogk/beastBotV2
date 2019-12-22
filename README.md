@@ -19,7 +19,7 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
 * The second alternative was the one I didn't think I'd have to implement having the API's but due to their inefficiency I had to build my own web scraper. If first inspected the youtube channel's, "videos" page and "featured" page and noticed that the latest video comes up there quite quickly and noted down the classes of the links pointing to the youtube videos. I also noticed after testing that sometimes the video would first pop up in the featured page and sometimes on the videos page which meant using both would be a good idea. I built a scraper that opens the youtube channel videos url, get's the latest url link and title by finding the first .yt-uix-tile-link class and returns it. I did the same for the youtube featured videos url. This brought down the time to around **1 minute on average**
   * I used cheerio, which is a "Fast, flexible & lean implementation of core jQuery designed specifically for the server" in order to quickly find elements on the pages I am scraping on.
   * I noticed after a couple thousand scraping requests, my ip used to scraped was blocked from making any further requests. I then used the TOR-request library on node.js that allows requests to be made anonymously using the TOR network, this proved to be a bit slower as the requests go through other people's computers around the world. Towards the time the video waas released I switched computers and got the code running on that instead as it had a fresh ip instead of using the TOR request.
-**To make the beast as powerful as possible I used ALL of the methods above into its workflow. I had a total of 6, "hunt" methods that would ALL be run at each loop:**
+ * **To make the beast as powerful as possible I used ALL of the methods above into its workflow. I had a total of 6, "hunt" methods that would ALL be run at each loop:**
  1. hunt1() method is to request the latest video from the Youtube API through the playlistItems API
  1. hunt2() method is to request the latest video from the RSS XML url for a channels videos from Youtube
  1. hunt3() method is to request the latest video by scraping the youtube channel's "videos" page from my local computer
@@ -27,7 +27,7 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
  1. hunt5() method does the same as the hunt3() except its anonymous using the tor-request module. This method is slower than hunt3() however was put in as a preqecaution in case my local computer ip was blocked.
  1. hunt6() method does the same as the hunt4() except its anonymous using the tor-request module. This method is slower than hunt4() however was put in as a preqecaution in case my local computer ip was blocked.
  At every loop, all 6 of these methods would be carried out and the first to get the latest video would call the execute() method to call the Youtube comment API and comment on the video.
- To make the code more organized and easy to c, all of the 6 hunt() methods return a json object as follows:
+   *To make the code more organized and easy to c, all of the 6 hunt() methods return a json object as follows:
  `{
  title: "title",
  link: "videoID"
