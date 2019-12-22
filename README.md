@@ -29,10 +29,12 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
  1. hunt6() method does the same as the hunt4() except its anonymous using the tor-request module. This method is slower than hunt4() however was put in as a preqecaution in case my local computer ip was blocked.
  At every loop, all 6 of these methods would be carried out and the first to get the latest video would call the execute() method to call the Youtube comment API and comment on the video.
    * To make the code more organized, all of the 6 hunt() methods return a json object as follows.
- ```{
+ ```
+ {
  title: "title",
  link: "videoID"
- }```
+ }
+ ```
  When an error occurs in any of the hunt methods, the title and link would default to "none" making it easier to ignore when handling the response.
 
 
