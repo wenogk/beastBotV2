@@ -1,4 +1,4 @@
-# BeastBot, the angry youtube commentor bot
+# BeastBot, the angry youtube commentor bot (version 2)
 ## Trying to win Mr Beast's 1000 dollars for being one of the earliest 10 commenters on his youtube video that comes out on the 19th. 
 
 _*DISCLAIMER* To the best of my knowledge, I am not violating any Youtube Guidelines, please do not replicate unless you know what you're doing._
@@ -10,6 +10,13 @@ This API call gives out the latest videos: https://www.googleapis.com/youtube/v3
 * If latest video is the one we want to comment on from the previous function. We call the comment function which takes in parameters videoId and comment. This is the API documentation for adding new top level comments to a youtube video:
 https://developers.google.com/youtube/v3/docs/commentThreads/insert
 * The bot will comment three times and then set the boolean to true, therefore breaking the loop
+
+##Version 2 improvements
+* In terms of the Youtube Data API quota, each query on the search API takes 50 points out of the total 10,000 maximum per day. This quota was not good therefore had to alternate to the playlist API where the upload playlist of MrBeast's channel was queried for the latest video, this had a quota of 3 points per day which was much better.
+* Something noticed when testing on my own channel by adding new videos is that the Youtube Data API is very slow in terms of updating its lists of videos (it took around 5 minutes to add a new video in average) therefore further alternatives were required.
+*
+##Version 2 method
+* 
 
 ## Steps / Pseudocode
 1) Start loop, if time is > 3:59pm ET 19th December 2019, then continue with step 2
