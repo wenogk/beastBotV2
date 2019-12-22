@@ -67,7 +67,6 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
 const API_KEY = "*********"
 const CLIENT_ID = "*********"
 const SERVER_HOST = "*********" //mine was http://localhost:8080
-const scraperAPIKEY = "*********"
 const commentText = "Hey Mr.Beast, I hope I win the $1000. Excited to watch the video!!"
 const channelID ="*********" 
 const uploadPlaylistID = "*********"
