@@ -38,10 +38,25 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
 
 
 ## Steps / Pseudocode
-1) Start loop, if time is > 3:59pm ET 19th December 2019, then continue with step 2
-2) If beastState.txt is, "happy" stop loop. If, "angry", continue to step 3
-3) Call latestVideo() function which will either be falsey or have a value returned for videoID
-4) If videoID returned from latestVideo(function) then run comment function, beastComment(videoId, "Comment text") three times and set beastState.txt to, "happy"
+1. Google data API key, client ID, Current latest video id, channelID, upload playlistID have to be hardcoded in the webConfig.js file (not on the repo as has sensitive info)
+1. Authorize BeastBot to comment by logging in with Youtube account. 
+1. State is set up, with a commented boolean to set if executed succesfully, current latest video id variable and quota usage variable.
+1.  Hunting loop
+  1. If boolean commented is true,  break loop
+  1. hunt() 
+    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+  1. hunt2()
+    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+  1. hunt3()
+    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+  1. hunt4()
+    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+  1. hunt5()
+    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+  1. hunt6()
+    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+
+1. If videoID returned from latestVideo(function) then run comment function, beastComment(videoId, "Comment text") three times and set beastState.txt to, "happy"
 
 ## Precautions
 * Youtube Data API V3 has quota limitations, therefore loop should ideally start running from 3:55PM ET, hopefully MrBeast is on time. Quota is 10,000 requests per day. ( 10,000 requests / 60 seconds ) = 166.666666667 minutes. That would be more than two hours of pinging which is great. 
