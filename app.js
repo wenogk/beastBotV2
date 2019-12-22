@@ -85,7 +85,7 @@ beast.use('/hunt3/:idVal', (req,res) => {
          title: title,
          link: href
        }
-       console.log("hunt3: " + body)
+       console.log("hunt3: " + title)
         res.json(jsonResult)
         return false;
       });

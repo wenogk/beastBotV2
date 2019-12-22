@@ -127,12 +127,11 @@ if(quota<5000) { //call API
   setQuota(quota);
 }
 
-//hunt2();
 hunt2();
 hunt3();
-
+hunt4();
 setLatestTitle("")
 //setCounter(counter)
-setTimeout(goBeast, 5000);
+setTimeout(goBeast, 500);
 }
 //latestVideoScraper()
