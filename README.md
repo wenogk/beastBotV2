@@ -1,5 +1,5 @@
 # BeastBot, the angry youtube commentor bot (version 2)
-## Trying to win Mr Beast's 1000 dollars for being one of the earliest 10 commenters on his youtube video that comes out on the 19th. 
+## Trying to win Mr Beast's 1000 dollars for being one of the earliest 10 commenters on his youtube video that comes out on the 19th December 2019. 
 
 _*DISCLAIMER* To the best of my knowledge, I am not violating any Youtube Guidelines, please do not replicate unless you know what you're doing._
 
@@ -12,11 +12,11 @@ _*DISCLAIMER* To the best of my knowledge, I am not violating any Youtube Guidel
 https://developers.google.com/youtube/v3/docs/commentThreads/insert
 * The bot will comment three times and then set the boolean to true, therefore breaking the loop
 
-## Version 2 improvements
-* In terms of the Youtube Data API quota, each query on the search API takes 50 points out of the total 10,000 maximum per day. This quota was not good therefore had to alternate to the playlist API where the upload playlist of MrBeast's channel was queried for the latest video, this had a quota of 3 points per day which was much better.
+## Huge updates - Version 2
+* In terms of the Youtube Data API quota, each query on the search API takes 50 points out of the total 10,000 maximum per day. This quota usage was not good as it would limit the frequency of requests possible therefore had to alternate to the playlist API where the upload playlist of MrBeast's channel was queried for the latest video, this had a quota of 3 points per day which was much better.
 * Something noticed when testing on my own channel by adding new videos is that the Youtube Data API is very slow in terms of updating its lists of videos (it took around 5 minutes to add a new video in average) therefore further alternatives were required. 
-* The first alternative I found was the
-* This is when I started working on a web scraping solution
+* The first alternative I found was that youtube has an RSS XML service where they provide channel videos to RSS Readers. For example if you go to https://www.youtube.com/feeds/videos.xml?channel_id={channelIDHere} it would give you a xml list of videos. The cool thing about this method is that it doesn't require API keys or authorization which is neat. Although accessing it programmatically is only possible through a server (cross browser origin problems) which is why I had to create a node.js express server endpoint to get data from the RSS url. The RSS url was however also not fast enough in terms of getting the latest video as it took around 3 minutes on average after testing.
+* The second alternative was the one I didn't think I'd have to implement having the API's but due to their inefficiency I had to build my own web scraper. I built a scraper that first opens the youtube channel videos url, get's the 
 
 
 ## Steps / Pseudocode
