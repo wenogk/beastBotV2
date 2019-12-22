@@ -44,17 +44,17 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
 1.  Hunting loop
   1. If boolean commented is true,  break loop
   1. hunt() 
-    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
-  1. hunt2()
-    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
-  1. hunt3()
-    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
-  1. hunt4()
-    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
-  1. hunt5()
-    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
-  1. hunt6()
-    * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+     * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+   1. hunt2()
+     * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+   1. hunt3()
+     * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+   1. hunt4()
+     * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+   1. hunt5()
+     * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
+   1. hunt6()
+     * If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
 
 1. If videoID returned from latestVideo(function) then run comment function, beastComment(videoId, "Comment text") three times and set beastState.txt to, "happy"
 
