@@ -13,6 +13,7 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
 * The bot will comment three times and then set the boolean to true, therefore breaking the loop
 
 ## Huge updates - Version 2
+* A simple web interface was made using bootstrap to visualize beastBot
 * In terms of the Youtube Data API quota, each query on the search API takes 100 points per request out of the total 10,000 maximum per day. This quota usage was not good as it would limit the frequency of requests possible therefore had to alternate to the playlist API where the upload playlist of MrBeast's channel was queried for the latest video, this had a quota of 3 points per request which is a **97% reduction in quota usage**
 * Something noticed when testing on my own channel by adding new videos is that the Youtube Data API is very slow in terms of updating its lists of videos (it took around **5 minutes on average** to add a new video) therefore further alternatives were required.
 * The first alternative I found was that youtube has an RSS XML service where they provide channel videos to RSS Readers. For example if you go to https://www.youtube.com/feeds/videos.xml?channel_id={channelIDHere} it would give you a xml list of videos. The cool thing about this method is that it doesn't require API keys or authorization which is neat. Although accessing it programmatically is only possible through a server (cross browser origin problems) which is why I had to create a node.js express server endpoint to get data from the RSS url. The RSS url was however also not fast enough in terms of getting the latest video as it took around **3 minutes on average** after testing.
@@ -56,9 +57,6 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
       1. hunt6()
           1. If latest video id returned not equal to current latest video id, call execute(latestVideoID) to comment
 
-  1. If videoID returned from latestVideo(function) then run comment function, beastComment(videoId, "Comment text") three times and set beastState.txt to, "happy"
-
-## Precautions
-* Youtube Data API V3 has quota limitations, therefore loop should ideally start running from 3:55PM ET, hopefully MrBeast is on time. Quota is 10,000 requests per day. ( 10,000 requests / 60 seconds ) = 166.666666667 minutes. That would be more than two hours of pinging which is great.
-  * https://www.youtube.com/watch?v=RjUlmco7v2M
-    * need to use playlist api, current search api call is 100 quota points
+  1. Execute function
+      1. Youtube data API used to comment on video using videoID passed through argument in function
+      1. Commented boolean set to true to break loop
