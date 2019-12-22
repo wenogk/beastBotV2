@@ -60,3 +60,13 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
   1. Execute function
       1. Youtube data API used to comment on video using videoID passed through argument in function
       1. Commented boolean set to true to break loop
+## Set up webConfig.js in the /public directory as follows:
+`let API_KEY = "*********"
+let CLIENT_ID = "*********"
+let SERVER_HOST = "*********" //mine was http://localhost:8080
+let scraperAPIKEY = ""*********""
+let commentText = "Hey Mr.Beast, I hope I win the $1000. Excited to watch the video!!"
+let channelID ="*********" 
+let uploadPlaylistID = "*********"
+let currentLatestVideoID = "*********"
+`
