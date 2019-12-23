@@ -64,11 +64,11 @@ https://developers.google.com/youtube/v3/docs/commentThreads/insert
       1. Commented boolean set to true to break loop
 ## Set up webConfig.js in the /public directory as follows:
 ```javascript
-const API_KEY = "*********"
-const CLIENT_ID = "*********"
+const API_KEY = "*********" //Google API key
+const CLIENT_ID = "*********" //Google Client ID for youtube data API
 const SERVER_HOST = "*********" //mine was http://localhost:8080
-const commentText = "Hey Mr.Beast, I hope I win the $1000. Excited to watch the video!!"
-const channelID ="*********" 
-const uploadPlaylistID = "*********"
-const currentLatestVideoID = "*********"
+const commentText = "Hey Mr.Beast, I hope I win the $1000. Excited to watch the video!!" // The actual comment text
+const channelID ="*********" // The target youtube channel id
+const uploadPlaylistID = "*********" //The uploads playlist id of the channel
+const currentLatestVideoID = "*********" //The current latest youtube video id before the new one comes out
 ```
