@@ -13,7 +13,7 @@
     "after-load": "^1.0.4",
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "tor-request": "^3.1.0",
     "xml-js": "^1.6.11"
   }
